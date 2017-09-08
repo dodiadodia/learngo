@@ -10,7 +10,6 @@ import (
 	"os"
 	"time"
 	"net/http"
-	"golang.org/x/tools/cmd/guru/testdata/src/definition-json"
 	"log"
 )
 
