@@ -13,18 +13,13 @@ import (
 	"time"
 )
 
-var palette1 = []color.Color{color.Black, color.RGBA{0x00, 0xff, 0x00, 0xff}}
-
-const (
-	whiteIndex1 = 0
-	blackIndex1 = 1
-)
+var palette2 = []color.Color{color.Black, color.RGBA{0x00, 0xff, 0x00, 0xff}}
 
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 	if len(os.Args) > 1 && os.Args[1] == "web" {
 		handler := func(w http.ResponseWriter, r *http.Request) {
-			lissajous1(w)
+			lissajous2(w)
 		}
 
 		http.HandleFunc("/", handler)
@@ -32,10 +27,10 @@ func main() {
 		return
 	}
 
-	lissajous1(os.Stdout)
+	lissajous2(os.Stdout)
 }
 
-func lissajous1(out io.Writer) {
+func lissajous2(out io.Writer) {
 	const (
 		cycles  = 5
 		res     = 0.001
@@ -49,11 +44,11 @@ func lissajous1(out io.Writer) {
 	phase := 0.0
 	for i := 0; i < nframes; i++ {
 		rect := image.Rect(0, 0, 2*size+1, 2*size+1)
-		img := image.NewPaletted(rect, palette1)
+		img := image.NewPaletted(rect, palette2)
 		for t := 0.0; t < cycles*2*math.Pi; t += res {
 			x := math.Sin(t)
 			y := math.Sin(t*freq + phase)
-			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5), blackIndex1)
+			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5), uint8(rand.Intn(5)))
 		}
 
 		phase += 0.1
