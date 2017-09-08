@@ -23,7 +23,7 @@ const (
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 	if len(os.Args) > 1 && os.Args[1] == "web" {
-		handler := func(w http.Response, r *http.Request) {
+		handler := func(w http.ResponseWriter, r *http.Request) {
 			lissajous(w)
 		}
 
